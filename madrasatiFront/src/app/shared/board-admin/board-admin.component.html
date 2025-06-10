@@ -1,0 +1,45 @@
+<mat-tab-group>
+    <mat-tab label="{{'Activités'}}">
+        <mat-card  class="example-card-2" >
+ 
+            <mat-card-header style="display: flex;justify-content: space-between;">
+            
+              <mat-card-title><h4 class="title-echart-pointage">Activités des enfants</h4></mat-card-title> 
+              <mat-form-field>
+                <mat-label>Choisir l'élève correspondant</mat-label>
+                <mat-select [(value)]="selectedChild" (selectionChange)="selectChild($event.value)">
+                  <mat-option *ngFor="let child of childs" [value]="child.value">
+                    {{ child.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+                      
+            </mat-card-header>
+        
+              <mat-card-content style="height: calc(100vh - 240px);">
+                <div echarts  #mychart   [options]="option"></div>  
+              </mat-card-content> 
+            
+              
+          </mat-card>
+    </mat-tab>
+    <mat-tab label="{{'Modules'}}">
+        <mat-card  class="example-card-2" >
+ 
+    
+            <mat-card-header>
+              <mat-card-title><h4 class="title-echart-pointage">Les Modules</h4></mat-card-title> 
+             
+                      
+            </mat-card-header>
+        
+              <mat-card-content >
+                    <button class="btn-hover color-11">Exporter Les Modules</button>
+              </mat-card-content> 
+            
+              
+          </mat-card>
+    </mat-tab>    
+</mat-tab-group>
+  
+  

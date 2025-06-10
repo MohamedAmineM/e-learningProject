@@ -1,0 +1,3 @@
+<app-board-admin *ngIf="appService.profileConnected ==='ADMIN' "></app-board-admin>
+<app-board-user *ngIf="appService.profileConnected ==='USER' || appService.profileConnected ===''"></app-board-user>
+<app-board-moderator *ngIf="appService.profileConnected ==='MODERATOR'"></app-board-moderator>

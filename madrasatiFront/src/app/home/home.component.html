@@ -1,0 +1,51 @@
+    
+<app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
+
+<mat-drawer-container  class="sidenavstyle" hasBackdrop="true">
+    <mat-drawer class="mat-drawer" style="width: 300px; background-color: #fff;font-weight: 500; font-size: 20;"  #drawer mode="over" [opened]="sideBarOpen">
+      
+
+    <div >
+        <div  class="AvatarM" style="margin-left: 25%;">
+            <div class="container-fluid">
+              <ul class="navbar-nav">
+                <!-- Avatar -->
+                <li  class="nav-item dropdown">
+                    <img
+                      src="assets/logoEcole.png"
+                      class="rounded-circle"
+                      height="80"
+                      alt=""
+                      loading="lazy"
+                    />
+                  
+                </li>
+              </ul>
+            </div>
+              
+          </div>
+        
+        <div  class="menu" style="margin-top: 20px;" (click)="goToScreen('/dashboard')"><mat-icon  class="icon" >home</mat-icon><a style="font-weight:bold">Accueil</a></div>
+        <div  class="menu" ><mat-icon style="margin-top: 15px;" class="icon" >view_module</mat-icon><a style="font-weight:bold">Consulter les modules</a></div>
+        <div  class="menu" ><mat-icon style="margin-top: 15px;" class="icon" >category</mat-icon><a style="font-weight:bold">consulter les activités</a></div>
+        <div  class="menu" ><mat-icon style="margin-top: 15px;" class="icon" >person</mat-icon><a style="font-weight:bold">Ajouter profile</a></div>
+        <div  class="menu" ><mat-icon style="margin-top: 15px;" class="icon" >settings</mat-icon><a style="font-weight:bold">Gérer mon compte</a></div>
+        <div  class="menu" ><mat-icon style="margin-top: 15px;" class="icon" >contact_support</mat-icon><a style="font-weight:bold">Contactez nous</a></div>
+        <div  class="menu" style="position: absolute;bottom: 5%;" (click)="logout()"><mat-icon class="icon">logout</mat-icon><a style="font-weight:bold">Déconnexion</a></div>
+        
+     
+        
+    </div>
+       
+
+
+    </mat-drawer>
+
+    <mat-drawer-content style="background-color: #f4f3ef;">
+     
+        <router-outlet></router-outlet>
+
+    </mat-drawer-content>
+  </mat-drawer-container>
+
+<app-footer></app-footer>

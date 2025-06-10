@@ -1,0 +1,29 @@
+.footerBack{
+    display: flex;
+    flex: 1 0 0%;
+    width: 100%;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12)!important;
+  }
+  
+  @media (min-width: 768px){
+    .text {
+      text-align: left!important;
+    }
+  }
+  
+  @media (min-width: 768px){
+    .col-mr-auto {
+      display: flex;
+      flex: 0 0 auto;
+      width: auto;
+    }
+  }
+  @media (min-width: 768px){
+    .col-md-auto {
+      width: auto;
+      right: 0;
+      position: absolute;
+    }
+  
+  }
+  

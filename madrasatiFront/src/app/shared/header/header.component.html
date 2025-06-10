@@ -1,0 +1,62 @@
+
+
+<mat-toolbar  style="height: 50px;background-color: #3c8dbc" >
+  
+    <mat-toolbar-row >
+   
+      <button class="btn " style="margin-top: 6px;color: #fff;" type="button" mat-raised-button (click)="toggleSidebar()" >
+        <mat-icon  style="font-size :30px;margin-right: 5px;margin-top: 3px;">notes</mat-icon>
+      </button>
+   
+          
+      <button class="nav-link"  routerLink="/home"  >MADRASATI</button>
+  
+    <div  class="AvatarM">
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <!-- Avatar -->
+
+              <img *ngIf="appService.profileConnected === 'USER'"
+                src="assets/gamepad.png"
+                class="rounded-circle"
+                height="45"
+                alt=""
+                loading="lazy"
+              />
+              <img *ngIf="appService.profileConnected === 'ADMIN'"
+                src="assets/admin.png"
+                class="rounded-circle"
+                height="45"
+                alt=""
+                loading="lazy"
+              />
+              <img *ngIf="appService.profileConnected === 'MODERATOR'"
+                src="assets/moderator.jpg"
+                class="rounded-circle"
+                height="45"
+                alt=""
+                loading="lazy"
+              />
+
+        </ul>
+      </div>
+        
+    </div>
+  
+  
+  
+    </mat-toolbar-row>
+    
+  </mat-toolbar>  
+  
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    

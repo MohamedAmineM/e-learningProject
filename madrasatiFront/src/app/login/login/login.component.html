@@ -1,0 +1,70 @@
+
+  <div class="wrapper fadeInDown" style="background: url(assets/login.jpg) no-repeat;">
+    <div id="formContent" style="display: flex;flex-direction: row;">
+      <div style="flex: 50%;">
+        <h4 style="color: #4F4F4F;">Découvrez notre application web <strong style="color: #3c8dbc;">MADRASATI !</strong> </h4>
+        <p style="text-align: center;opacity: 0.7; font-size: small;line-height: 2;"> La plateforme qui accompagne votre enfant dans son développement personnel.
+           Avec nos activités interactives et nos ressources éducatives, votre enfant peut explorer,
+            apprendre et grandir en toute sécurité.
+           Rejoignez-nous pour un voyage vers une personnalité équilibrée et épanouie!</p>
+      </div>
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <!--div class="fadeIn first">
+        <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+      </div-->
+  
+      <!-- Login Form -->
+      <div style="height: 50%;color: #3c8dbc;width: 2px;opacity: 0.8;"></div>
+      <div>
+
+      
+      <div  class="AvatarM">
+        <div class="container-fluid">
+          <ul class="navbar-nav">
+            <!-- Avatar -->
+            <li  class="nav-item dropdown">
+                <img
+                  src="assets/logoEcole.png"
+                  class="rounded-circle"
+                  height="70"
+                  alt=""
+                  loading="lazy"
+                />
+              
+            </li>
+          </ul>
+        </div>
+          
+      </div>
+      
+      
+        <input style="width: 100%;" type="text" #email class="fadeIn second" name="login"  placeholder="Nom d'utilisateur">
+        
+        <div class="input-field">
+              <input style="width: 100%;" [type]="hide ? 'password' : 'text'" #password name="password" placeholder="Mot de passe" required/>
+            <mat-icon style="position:absolute;color:#3c8dbc; margin-top:-45px; right: 20px;font-size: 18px;cursor: pointer;" matSuffix (click)="hide = !hide">
+              {{hide ? 'visibility' : 'visibility_off'}}
+            </mat-icon>
+        </div>
+
+    
+        
+       
+        <div style="display: flex;flex-direction: column;">
+          <input style="border-radius: 20px;width: 87%;" type="submit" class="fadeIn fourth" (click)="connect(email.value, password.value)" value="Se connecter">
+          <div class="pass" style="display:flex;flex-direction: row;justify-content: space-around;">
+            <p  style="color: #7c7e7c;margin-left: -px;">Vous n’êtes pas membre ?</p>
+            <p class="pointer" (click)="goToSignUp()" style="color: #0e38a3;text-decoration-line: underline;">Créer nouveau compte</p>
+
+          </div>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+
+
+
+  
