@@ -16,14 +16,18 @@ COPY . .
 # Build the Angular app for production
 RUN npm run build 
 
-# Step 2: Serve the built app using Nginx
+# Stage 2: Serve with NGINX
 FROM nginx:alpine
 
-# Copy the build output to the Nginx folder
-COPY --from=build /app/dist/madrasati-front/browser /usr/share/nginx/html
+# Remove default nginx website
+RUN rm -rf /usr/share/nginx/html/*
 
-# Expose the port that Nginx will use
+# Copy built Angular files
+COPY --from=build /app/dist/madrasati-front/browser /usr/share/nginx/html/
+
+# Copy custom nginx config
+COPY default.conf /etc/nginx/conf.d/default.conf
+
+
 EXPOSE 80
-
-# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
