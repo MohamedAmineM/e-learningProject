@@ -6,8 +6,9 @@ import { AppService } from '../app.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthServiceService } from '../services/auth.service.service';
 import { StorageServiceService } from '../services/storage.service.service';
+import { environment } from '../../environments/environment';
 
-const AUTH_API = '/api';
+const AUTH_API = environment.apiurl;
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json',
    })
