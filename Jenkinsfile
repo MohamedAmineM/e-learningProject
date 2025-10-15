@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'mmnassri/madrasati-frontend'
+        DOCKER_USERNAME = 'mmnassri'
+        DOCKER_IMAGE = "${DOCKER_USERNAME}/madrasati-frontend"
         CONTAINER_NAME = 'e-learningFrontCont'
     }
 
@@ -14,12 +15,42 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build Docker Image and Push to DockerHub') {
             steps {
-                dir('madrasatiFront') {  //  'madrasatiFront' is the correct directory!
+                dir('madrasatiFront') {
                     script {
-                        bat "docker build -t ${DOCKER_IMAGE}:latest ."
+                        echo "======= Building and pushing frontend Docker image ======="
+
+                        withCredentials([
+                            usernamePassword(
+                                credentialsId: 'dockerhub_cred',
+                                usernameVariable: 'DOCKER_USER',
+                                passwordVariable: 'DOCKER_PASS'
+                            )
+                        ]) {
+                            // Build frontend image (Angular)
+                            bat "docker build -t %DOCKER_USER%/madrasati-frontend ."
+
+                            // Login to Docker Hub
+                            bat "echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin"
+
+                            // Push image to Docker Hub
+                            bat "docker push %DOCKER_USER%/madrasati-frontend"
+                        }
                     }
+                }
+            }
+
+            post {
+                always {
+                    // Docker logout on Windows agent
+                    bat 'docker logout'
+                }
+                success {
+                    echo "✅ Push image execution SUCCESS"
+                }
+                failure {
+                    echo "❌ Push image execution FAILED"
                 }
             }
         }
@@ -33,10 +64,10 @@ pipeline {
                     bat "docker stop ${CONTAINER_NAME} || exit 0"
                     bat "docker rm ${CONTAINER_NAME} || exit 0"
 
-                    // Check if network (my-network) exists; if not, create it
+                    // Create network if not exists
                     bat 'docker network inspect my-network >nul 2>&1 || docker network create my-network'
 
-                    // Run the new container (expose port 3000 on host to port 80 inside the container)
+                    // Run new container
                     bat "docker run -d --name ${CONTAINER_NAME} --network my-network -p 3000:80 ${DOCKER_IMAGE}:latest"
                 }
             }
