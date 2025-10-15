@@ -33,8 +33,11 @@ pipeline {
                     bat "docker stop ${CONTAINER_NAME} || exit 0"
                     bat "docker rm ${CONTAINER_NAME} || exit 0"
 
+                    // Check if network (my-network) exists; if not, create it
+                    bat 'docker network inspect my-network >nul 2>&1 || docker network create my-network'
+
                     // Run the new container (expose port 3000 on host to port 80 inside the container)
-                    bat "docker run -d --name ${CONTAINER_NAME} -p 3000:80 ${DOCKER_IMAGE}:latest"
+                    bat "docker run -d --name ${CONTAINER_NAME} --network my-network -p 3000:80 ${DOCKER_IMAGE}:latest"
                 }
             }
         }
