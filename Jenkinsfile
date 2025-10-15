@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                dir('demo') {  // Make sure 'demo' is the correct directory!
+                dir('madrasatiFront') {  //  'madrasatiFront' is the correct directory!
                     script {
                         bat "docker build -t ${DOCKER_IMAGE}:latest ."
                     }
