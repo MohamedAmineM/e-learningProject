@@ -56,7 +56,7 @@ pipeline {
             }
         }
 
-        stage('Run Container') {
+      /*  stage('Run Container') {
             steps {
                 script {
                     echo "🚀 Starting Docker container for Angular frontend..."
@@ -72,13 +72,13 @@ pipeline {
                     bat "docker run -d --name ${CONTAINER_NAME} --network my-network -p 3000:80 ${DOCKER_IMAGE}:latest"
                 }
             }
-        }
+        }*/
 
-        stage('Check Running Containers') {
+      /*  stage('Check Running Containers') {
             steps {
                 bat 'docker ps'
             }
-        }
+        } */
     }
 
     post {
