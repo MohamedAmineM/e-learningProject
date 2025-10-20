@@ -43,6 +43,7 @@ pipeline {
 
             post {
                 always {
+                    
                     // Docker logout on Windows agent
                     bat 'docker logout'
                 }
