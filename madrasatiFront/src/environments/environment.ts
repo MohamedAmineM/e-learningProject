@@ -4,6 +4,6 @@
 }*/
 
 export const environment = {
-    production: true,
+    production: false,
     apiurl: '/api'   // relative path redirection with nginx
 };
