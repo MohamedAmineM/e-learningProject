@@ -1,31 +1,32 @@
-# Stage 1: Build Angular app
+ # Step 1: Build the Angular app
 FROM node:18 AS build
 
+# Set the working directory
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy package.json and package-lock.json
 COPY package*.json ./
-RUN npm ci
 
-# Copy source code
+# Install the dependencies
+RUN npm install
+
+# Copy the source code
 COPY . .
 
-# Build Angular app for production
-RUN npm run build -- --configuration production
+# Build the Angular app for production
+RUN npm run build --configuration=production
 
-# Stage 2: Serve static files using a simple lightweight web server
-FROM node:18-alpine
+# Stage 2: Serve with NGINX
+FROM nginx:alpine
 
-WORKDIR /app
+# Remove default nginx website
+RUN rm -rf /usr/share/nginx/html/*
 
-# Copy the built files from the build stage
-COPY --from=build /app/dist/madrasati-front/browser /app
+# Copy built Angular files
+COPY --from=build /app/dist/madrasati-front/browser /usr/share/nginx/html/
 
-# Install a simple static server
-RUN npm install -g serve
+# Copy custom nginx config
+COPY default.conf /etc/nginx/conf.d/default.conf
 
-# Expose default port
 EXPOSE 3000
-
-# Start the static server
-CMD ["serve", "-s", ".", "-l", "3000"]
+CMD ["nginx", "-g", "daemon off;"] 
