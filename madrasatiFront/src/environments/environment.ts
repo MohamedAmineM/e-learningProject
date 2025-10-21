@@ -5,5 +5,5 @@
 
 export const environment = {
     production: false,
-    apiurl: 'http://backend:8082/api/'   // relative path redirection with nginx
+    apiurl: 'api/'   // relative path redirection with nginx
 };
