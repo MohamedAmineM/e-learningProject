@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AppService } from '../../app.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
