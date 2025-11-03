@@ -4,7 +4,7 @@ import { AppService } from '../../app.service';
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })
