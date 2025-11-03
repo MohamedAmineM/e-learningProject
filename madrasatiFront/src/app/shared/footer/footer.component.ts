@@ -10,6 +10,7 @@ import { AppService } from '../../app.service';
 })
 export class FooterComponent {
   currentYear:any = '2024';
+  today: Date = new Date();
 
   constructor(public appService:AppService){
 
