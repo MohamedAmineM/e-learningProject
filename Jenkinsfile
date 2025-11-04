@@ -14,7 +14,22 @@ pipeline {
                 git url: 'https://github.com/MohamedAmineM/e-learningProject.git', branch: 'main'
             }
         }
-
+        stage('SonarQube Analysis') {
+            environment {
+                scannerHome = tool 'SonarQubeScanner'  
+            }
+            steps {
+                withSonarQubeEnv('mmnassriQube') { 
+                    bat """
+                        ${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=myproject \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.login=$SONARQUBE_TOKEN
+                    """
+                }
+            }
+        }
         stage('Build Docker Image and Push to DockerHub') {
             steps {
                 dir('madrasatiFront') {
