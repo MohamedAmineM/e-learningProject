@@ -16,7 +16,7 @@ pipeline {
                 }
                 stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('LocalSonarQube') {
+                withSonarQubeEnv('mmnassriSonarQube') {
                     sh 'sonar-scanner \
                         -Dsonar.projectKey=e-learning \
                         -Dsonar.sources=. \
