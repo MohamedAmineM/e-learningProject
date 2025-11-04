@@ -1,18 +1,13 @@
-# dependencies
+# .dockerignore
 node_modules
-
-# production
-build
-dist
-  
-# misc
-package.json.bak
-.DS_Store
-
-# config file
+.git
+.gitignore
+Dockerfile
+README.md
 .env
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log* 
+dist
+coverage
+tmp
+npm-debug.log
+.vscode
+.idea
