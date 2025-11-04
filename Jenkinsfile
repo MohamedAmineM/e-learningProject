@@ -16,6 +16,8 @@ pipeline {
                 }
                 stage('SonarQube Analysis') {
                     steps {
+                        def scannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                        
                         withCredentials([string(credentialsId: 'mmnassriSonarQube', variable: 'SONAR_AUTH_TOKEN')]) {
                             withSonarQubeEnv('mmnassriSonarQube') {
                                 bat """
