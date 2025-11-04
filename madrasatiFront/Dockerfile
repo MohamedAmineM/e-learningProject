@@ -11,7 +11,10 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the source code
-COPY . .
+COPY package*.json ./
+COPY src/ ./src/
+COPY angular.json .
+COPY tsconfig*.json ./
 
 # Build the Angular app for production
 RUN npm run build --configuration=production
