@@ -15,25 +15,24 @@ pipeline {
                     }
                 }
                 stage('SonarQube Analysis') {
-                        steps {
-                            script {
-                                // Retrieve SonarScanner path from Jenkins tool config
-                                def scannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    
-                                withCredentials([string(credentialsId: 'mmnassriSonarQube', variable: 'SONAR_AUTH_TOKEN')]) {
-                                    withSonarQubeEnv('mmnassriSonarQube') {
-                                        bat """
-                                            "${scannerHome}\\bin\\sonar-scanner.bat" ^
-                                              -Dsonar.projectKey=e-learning ^
-                                              -Dsonar.sources=. ^
-                                              -Dsonar.host.url=http://localhost:9000 ^
-                                              -Dsonar.login=%SONAR_AUTH_TOKEN%
-                                        """
-                                    }
+                    steps {
+                        script {
+                            def scannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                            withCredentials([string(credentialsId: 'mmnassriSonarQube', variable: 'SONAR_AUTH_TOKEN')]) {
+                                withSonarQubeEnv('mmnassriSonarQube') {
+                                    bat """
+                                        "${scannerHome}\\bin\\sonar-scanner.bat" ^
+                                          -Dsonar.projectKey=e-learning ^
+                                          -Dsonar.sources=. ^
+                                          -Dsonar.host.url=http://localhost:9000 ^
+                                          -Dsonar.login=%SONAR_AUTH_TOKEN%
+                                    """
                                 }
                             }
                         }
-                }
+                    }
+}
+
 
 
 
