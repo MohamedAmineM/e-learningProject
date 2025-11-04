@@ -43,14 +43,12 @@ public storageService: StorageServiceService) { }
       this.isLoggedIn = true;
       this.roles = this.appService.getUser().roles;
     
-      let parts: String[] = [] = data.roles[0].split("_");
-      this.appService.profileConnected  = parts[1]; 
+      let parts: String[] = data.roles[0].split("_");
+          
+      this.appService.profileConnected  = parts[1];     
       console.log(this.appService.profileConnected + '111111111111')
       
-      
-      
       this.appService.profileConnected = data.roles[0];
-
       console.log(this.appService.profileConnected + '22222222222222222222')
       
     
