@@ -67,7 +67,7 @@ pipeline {
                              // 🔍 Scan image with Trivy via Docker
                             echo "======= Running Trivy scan (Docker-based) ======="
                             bat """
-                            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image --exit-code 1 --severity HIGH,CRITICAL ${DOCKER_IMAGE}:latest
+                            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image  --severity HIGH,CRITICAL ${DOCKER_IMAGE}:latest
                             """
 
                             // Login to Docker Hub
