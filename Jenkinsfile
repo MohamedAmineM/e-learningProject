@@ -30,12 +30,19 @@ pipeline {
                                         -Dsonar.host.url=http://localhost:9000 ^
                                         -Dsonar.login=%SONAR_AUTH_TOKEN%
                                     """
+                                    }
                                 }
+                            }
+                    }
+                }
+            
+                stage('Quality Gate') {
+                        steps {
+                            timeout(time: 1, unit: 'HOURS') {
+                                waitForQualityGate abortPipeline: true
                             }
                         }
                     }
-            }
-
 
 
 
