@@ -30,12 +30,10 @@ export class AppComponent {
           if (this.isLoggedIn) {
             const user = this.storageService.getUser();
             this.roles = user.roles;
-    
-        
-
-
-            let parts: String[] = [] = this.roles[0].split("_");
-            this.appService.profileConnected  = parts[1]; 
+            
+            let parts: string[] = this.roles[0].split("_");
+            this.appService.profileConnected = parts[1];
+            
           }else{
             this.router.navigate(['/login'])
           }
