@@ -14,24 +14,28 @@ pipeline {
                         git url: 'https://github.com/MohamedAmineM/e-learningProject.git', branch: 'main'
                     }
                 }
+
+        
+
                 stage('SonarQube Analysis') {
+                    
                     steps {
                         script {
-                            def scannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                            withCredentials([string(credentialsId: 'mmnassriSonarQube', variable: 'SONAR_AUTH_TOKEN')]) {
-                                withSonarQubeEnv('mmnassriSonarQube') {
+                            withSonarQubeEnv('mmnassriSonarQube') {
+                                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_AUTH_TOKEN')]) {
                                     bat """
-                                        "${scannerHome}\\bin\\sonar-scanner.bat" ^
-                                          -Dsonar.projectKey=e-learning ^
-                                          -Dsonar.sources=. ^
-                                          -Dsonar.host.url=http://localhost:9000 ^
-                                          -Dsonar.login=%SONAR_AUTH_TOKEN%
+                                        "${tool 'SonarQubeScanner'}/bin/sonar-scanner.bat" ^
+                                        -Dsonar.projectKey=e-learning ^
+                                        -Dsonar.sources=. ^
+                                        -Dsonar.host.url=http://localhost:9000 ^
+                                        -Dsonar.login=%SONAR_AUTH_TOKEN%
                                     """
                                 }
                             }
                         }
                     }
-}
+            }
+
 
 
 
