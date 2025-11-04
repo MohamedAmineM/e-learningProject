@@ -14,16 +14,23 @@ pipeline {
                         git url: 'https://github.com/MohamedAmineM/e-learningProject.git', branch: 'main'
                     }
                 }
-                stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('mmnassriSonarQube') {
-                    bat 'sonar-scanner \
-                        -Dsonar.projectKey=e-learning \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://localhost:9000'
-                }
-            }
-        }
+               stage('SonarQube Analysis') {
+                    environment {
+                        SONAR_SCANNER_HOME = tool 'SonarQubeScanner'   
+                        SONAR_AUTH_TOKEN = credentials('mmnassriSonarQube')
+                    }
+                    steps {
+                        withSonarQubeEnv('mmnassriSonarQube') {
+                            bat """
+                                "%SONAR_SCANNER_HOME%\\bin\\sonar-scanner.bat" ^
+                                  -Dsonar.projectKey=e-learning ^
+                                  -Dsonar.sources=. ^
+                                  -Dsonar.host.url=http://localhost:9000 ^
+                                  -Dsonar.login=%SONAR_AUTH_TOKEN%
+                            """
+                        }
+                    }
+}
 
 
         stage('Build Docker Image and Push to DockerHub') {
