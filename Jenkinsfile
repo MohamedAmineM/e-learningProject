@@ -17,19 +17,22 @@ pipeline {
         stage('SonarQube Analysis') {
             environment {
                 scannerHome = tool 'SonarQubeScanner'  
+                SONARQUBE_TOKEN = credentials('SONARQUBE_TOKEN')
             }
             steps {
                 withSonarQubeEnv('mmnassriQube') { 
                     bat """
-                        ${scannerHome}/bin/sonar-scanner \
-                        -Dsonar.projectKey=myproject \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://localhost:9000 \
-                        -Dsonar.login=$SONARQUBE_TOKEN
+                        "%scannerHome%\\bin\\sonar-scanner.bat" ^
+                          -Dsonar.projectKey=e-learning ^
+                          -Dsonar.sources=. ^
+                          -Dsonar.host.url=http://localhost:9000 ^
+                          -Dsonar.login=%SONARQUBE_TOKEN%
                     """
                 }
             }
         }
+
+
         stage('Build Docker Image and Push to DockerHub') {
             steps {
                 dir('madrasatiFront') {
