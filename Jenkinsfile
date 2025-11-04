@@ -17,7 +17,7 @@ pipeline {
                 stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('mmnassriSonarQube') {
-                    sh 'sonar-scanner \
+                    bat 'sonar-scanner \
                         -Dsonar.projectKey=e-learning \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=http://localhost:9000'
