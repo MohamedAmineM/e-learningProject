@@ -17,7 +17,7 @@ pipeline {
         stage('SonarQube Analysis') {
             environment {
                 scannerHome = tool 'SonarQubeScanner'  
-                SONARQUBE_TOKEN = credentials('SONARQUBE_TOKEN')
+                SONARQUBE_TOKEN = credentials('mmnassriQube')
             }
             steps {
                 withSonarQubeEnv('mmnassriQube') { 
