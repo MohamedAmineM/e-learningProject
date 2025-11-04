@@ -9,25 +9,18 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+                stage('Checkout') {
+                    steps {
+                        git url: 'https://github.com/MohamedAmineM/e-learningProject.git', branch: 'main'
+                    }
+                }
+                stage('SonarQube Analysis') {
             steps {
-                git url: 'https://github.com/MohamedAmineM/e-learningProject.git', branch: 'main'
-            }
-        }
-        stage('SonarQube Analysis') {
-            environment {
-                scannerHome = tool 'SonarQubeScanner'  
-                SONARQUBE_TOKEN = credentials('mmnassriQube')
-            }
-            steps {
-                withSonarQubeEnv('mmnassriQube') { 
-                    bat """
-                        "%scannerHome%\\bin\\sonar-scanner.bat" ^
-                          -Dsonar.projectKey=e-learning ^
-                          -Dsonar.sources=. ^
-                          -Dsonar.host.url=http://localhost:9000 ^
-                          -Dsonar.login=%SONARQUBE_TOKEN%
-                    """
+                withSonarQubeEnv('LocalSonarQube') {
+                    sh 'sonar-scanner \
+                        -Dsonar.projectKey=e-learning \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://localhost:9000'
                 }
             }
         }
