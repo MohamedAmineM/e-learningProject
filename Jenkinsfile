@@ -48,7 +48,7 @@ pipeline {
 
 
 
-        stage('Build Docker Image and Push to DockerHub') {
+      /*  stage('Build Docker Image and Push to DockerHub') {
             steps {
                 dir('madrasatiFront') {
                     script {
@@ -92,6 +92,53 @@ pipeline {
                     echo "❌ Push image execution FAILED"
                 }
             }
+        }*/
+
+        stage('Build Docker Image') {
+            steps {
+                dir('madrasatiFront') {
+                    script {
+                        echo "======= Building frontend Docker image ======="
+                        bat "docker build -t ${DOCKER_IMAGE}:latest ."
+                    }
+                }
+            }
+        }
+
+        stage('Scan Docker Image with Trivy') {
+            steps {
+                dir('madrasatiFront') {
+                    script {
+                        echo "======= Running Trivy scan (HIGH & CRITICAL) ======="
+                        bat """
+                        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image --severity HIGH,CRITICAL ${DOCKER_IMAGE}:latest
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Push Docker Image to DockerHub') {
+            steps {
+                dir('madrasatiFront') {
+                    script {
+                        echo "======= Pushing frontend Docker image to DockerHub ======="
+                        withCredentials([
+                            usernamePassword(
+                                credentialsId: 'dockerhub_cred',
+                                usernameVariable: 'DOCKER_USER',
+                                passwordVariable: 'DOCKER_PASS'
+                            )
+                        ]) {
+                            // Login to Docker Hub
+                            bat "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
+
+                            // Push image
+                            bat "docker push ${DOCKER_IMAGE}:latest"
+                        }
+                    }
+                }
+            }
         }
 
           stage('Run Container') {
@@ -108,6 +155,18 @@ pipeline {
 
                     // Run new container
                     bat "docker run -d --name ${CONTAINER_NAME} --network my-network -p 3000:80 ${DOCKER_IMAGE}:latest"
+                }
+            }
+              post {
+                always {
+                    // Logout
+                    bat 'docker logout'
+                }
+                success {
+                    echo "✅ Push image execution SUCCESS"
+                }
+                failure {
+                    echo "❌ Push image execution FAILED"
                 }
             }
         }
