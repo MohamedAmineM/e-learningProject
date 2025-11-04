@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit{
         
 
 
-      let parts: String[] = [] = data.roles[0].split("_");
+      let parts: String[] = data.roles[0].split("_");
       this.appService.profileConnected  = parts[1]; 
       
       
