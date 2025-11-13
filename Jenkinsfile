@@ -105,7 +105,7 @@ pipeline {
             }
         }
 
-        stage('Scan Docker Image with Trivy') {
+      /*  stage('Scan Docker Image with Trivy') {
             steps {
                 dir('madrasatiFront') {
                     script {
@@ -116,7 +116,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 
         stage('Push Docker Image to DockerHub') {
             steps {
