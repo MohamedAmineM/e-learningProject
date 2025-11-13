@@ -22,18 +22,9 @@ RUN npm run build --configuration=production
 # Stage 2: Serve with NGINX
 FROM nginx:alpine
 
-# Remove default nginx website
-RUN rm -rf /usr/share/nginx/html/*
-
-# Copy built Angular files
-COPY --from=build /app/dist/madrasati-front/browser /usr/share/nginx/html/
-
-# Copy custom nginx config
+COPY dist/madrasati-front/browser /usr/share/nginx/html/
 COPY default.conf /etc/nginx/conf.d/default.conf
-
-# Fix permissions and drop privileges
 RUN chown -R nginx:nginx /usr/share/nginx/html
 USER nginx
-
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"] 
+CMD ["nginx", "-g", "daemon off;"]
