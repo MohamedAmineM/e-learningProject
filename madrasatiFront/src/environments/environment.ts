@@ -10,5 +10,5 @@
 
 export const environment = {
     production: false,
-    apiurl: 'http://backend:8082/api'
+    apiurl: 'http://madrasati-backend:8082/api'
 }
